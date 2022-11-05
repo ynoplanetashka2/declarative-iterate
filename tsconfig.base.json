@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "es2016",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
+    "rootDir": "./src",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "declaration": false,                              /* Generate .d.ts files from TypeScript and JavaScript files in your project. */
+    "forceConsistentCasingInFileNames": true,            /* Ensure that casing is correct in imports. */
+    "strict": true,                                      /* Enable all strict type-checking options. */
+    "sourceMap": false
+  },
+  "includes": "./src/**/*.ts",
+  "exclude": ["**/__tests__", "./dist"]
+}
