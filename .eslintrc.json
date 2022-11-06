@@ -12,21 +12,21 @@
     },
 	"ignorePatterns": ["node_modules"],
     "rules": {
-        "semi": ["warn", "never", {
+        "semi": ["error", "never", {
             "beforeStatementContinuationChars": "always"
         }],
-        "no-extra-semi": "warn",
+        "no-extra-semi": "error",
         "no-unexpected-multiline": "error",
         "block-spacing": "warn",
-        "brace-style": ["warn", "stroustrup"],
+        "brace-style": ["error", "stroustrup"],
         "space-before-blocks": "warn",
-        "keyword-spacing": "warn",
+        "keyword-spacing": "error",
         "arrow-spacing": ["warn", {
             "before": true,
             "after": true
         }],
         "func-call-spacing": ["warn", "never"],
-        "curly": "warn",
+        "curly": "error",
         "indent": ["error", "tab", {
             "SwitchCase": 1
         }],
