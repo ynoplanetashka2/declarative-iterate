@@ -12,7 +12,10 @@ jest.mock('../../../globalContext', () => {
 })
 
 function assertNotNull<T>(arg: T): asserts arg is NonNullable<T> {
-	if (!arg) {
+	if (
+		arg === void 0
+		|| arg === null
+	) {
 		throw new TypeError(`argument is null`)
 	}
 }
@@ -32,16 +35,20 @@ describe('applyPoperation module', () => {
 			for (const opName in OperationName) {
 				const op = OperationName[opName] as unknown as OperationName
 				opList.push(op)
-				applyOperation(op, () => 0)
+				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+				//@ts-ignore-line
+				applyOperation(op)
 			}
 			expect(CONTEXT_REF.ref.operations).toBe(opList)
 		})
 		it('should return operations results when called in complete lifecylcle stage', () => {
 			assertNotNull(CONTEXT_REF.ref)
 			CONTEXT_REF.ref.lifecycleStage = LifecycleStage.complete
-			for (let i = 0; i < 3; ++i) {
-				applyOperation(OperationName.map, () => 0)
-			}
+			CONTEXT_REF.ref.operations = [
+				OperationName.map,
+				OperationName.map,
+				OperationName.map,
+			]
 			CONTEXT_REF.ref.operationsResults = ['a', 3, {}]
 			const result: unknown[] = []
 			for (let i = 0; i < 3; ++i) {
@@ -49,13 +56,12 @@ describe('applyPoperation module', () => {
 			}
 			expect(CONTEXT_REF.ref.operationsResults).toBe(result)
 		})
+		it.todo('should throw if operations order is not preserved in complete state')
+		it.todo('should propagate error in propagateError lifecycle stage') // TODO cover this case with "describe" and several other tests
 		it('should throw if context is malformed', () => {
 			CONTEXT_REF.ref = null
 			const wrap = () => applyOperation(OperationName.map, () => 0)
 			expect(wrap).toThrow()
 		})
-	})
-	describe('beforeApplyOperation', () => {
-		it('should', () => void 0)
 	})
 })
